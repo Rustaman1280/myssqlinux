@@ -1,0 +1,87 @@
+/* Custom CSS styling for MySQLDesk */
+
+.card-frame {
+    background-color: @card_bg_color;
+    border-radius: 12px;
+    border: 1px solid alpha(@borders, 0.6);
+    padding: 18px;
+    margin: 6px;
+    box-shadow: 0 2px 4px alpha(black, 0.05);
+}
+
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.status-running {
+    background-color: alpha(#22c55e, 0.2);
+    color: #16a34a;
+    border: 1px solid #22c55e;
+}
+
+.status-stopped {
+    background-color: alpha(#94a3b8, 0.2);
+    color: #64748b;
+    border: 1px solid #94a3b8;
+}
+
+.status-starting, .status-stopping {
+    background-color: alpha(#eab308, 0.2);
+    color: #ca8a04;
+    border: 1px solid #eab308;
+}
+
+.status-error {
+    background-color: alpha(#ef4444, 0.2);
+    color: #dc2626;
+    border: 1px solid #ef4444;
+}
+
+.status-unknown {
+    background-color: alpha(#a855f7, 0.2);
+    color: #9333ea;
+    border: 1px solid #a855f7;
+}
+
+.big-title {
+    font-weight: 800;
+    font-size: 1.4em;
+    letter-spacing: -0.02em;
+}
+
+.section-header {
+    font-weight: 700;
+    font-size: 1.1em;
+    color: @accent_color;
+    margin-bottom: 8px;
+}
+
+.metric-label {
+    font-size: 0.9em;
+    color: alpha(@window_fg_color, 0.7);
+}
+
+.metric-value {
+    font-weight: 600;
+    font-size: 1.05em;
+}
+
+.log-view {
+    font-family: 'Fira Code', 'JetBrains Mono', 'DejaVu Sans Mono', monospace;
+    font-size: 12px;
+    padding: 8px;
+    background-color: alpha(black, 0.04);
+}
+
+.success-btn {
+    background-color: #16a34a;
+    color: white;
+}
+
+.danger-btn {
+    background-color: #dc2626;
+    color: white;
+}

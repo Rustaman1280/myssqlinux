@@ -1,0 +1,51 @@
+[package]
+name = "mysqldesk"
+version = "0.1.0"
+edition = "2021"
+authors = ["MySQLDesk Contributors"]
+description = "Native Linux MySQL/MariaDB & phpMyAdmin Management Control Panel"
+license = "GPL-3.0-or-later"
+
+[dependencies]
+gtk4 = { version = "0.11", package = "gtk4" }
+adw = { version = "0.9", package = "libadwaita" }
+glib = "0.22"
+gio = "0.22"
+tokio = { version = "1.40", features = ["rt-multi-thread", "sync", "time", "macros"] }
+async-channel = "2.3"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+which = "7.0"
+open = "5.3"
+tempfile = "3.17"
+sha2 = "0.10"
+flate2 = "1.0"
+tar = "0.4"
+ureq = "2.12"
+dirs = "6.0"
+
+[package.metadata.deb]
+maintainer = "MySQLDesk Contributors <developer@mysqldesk.org>"
+copyright = "2026, MySQLDesk Contributors"
+license-file = ["README.md", "4"]
+extended-description = """\
+MySQLDesk is a native Linux desktop control panel for managing MySQL/MariaDB \
+and running a local phpMyAdmin instance without web wrapper bloat.\
+"""
+depends = "libgtk-4-1, libadwaita-1-0, pkexec | policykit-1, php-cli, mariadb-server | mysql-server"
+section = "database"
+priority = "optional"
+assets = [
+    ["target/release/mysqldesk", "usr/bin/mysqldesk", "755"],
+    ["data/org.mysqldesk.MySQLDesk.desktop", "usr/share/applications/org.mysqldesk.MySQLDesk.desktop", "644"],
+    ["data/icons/org.mysqldesk.MySQLDesk.svg", "usr/share/icons/hicolor/scalable/apps/org.mysqldesk.MySQLDesk.svg", "644"],
+]
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=MySQLDesk
+Comment=Native Linux MySQL/MariaDB & phpMyAdmin Management Control Panel
+GenericName=Database Server Manager
+Exec=mysqldesk
+Icon=org.mysqldesk.MySQLDesk
+Terminal=false
+Type=Application
+Categories=Development;Database;System;
+Keywords=mysql;mariadb;phpmyadmin;database;server;xampp;
+StartupNotify=true
+StartupWMClass=mysqldesk
