@@ -178,14 +178,32 @@ impl DatabaseDetector {
 
         // Example MariaDB: "mariadb from 11.8.6-MariaDB, client 15.2 for debian-linux-gnu (x86_64) using EditLine wrapper"
         // Example MySQL: "mysql  Ver 8.0.36-0ubuntu0.24.04.1 for Linux on x86_64 ((Ubuntu))"
-        for part in raw.split_whitespace() {
+        let parts: Vec<&str> = raw.split_whitespace().collect();
+        for part in &parts {
             if part.contains("MariaDB") {
                 let cleaned = part.trim_end_matches(',');
                 return Some(format!("MariaDB {}", cleaned.replace("-MariaDB", "")));
             }
-            if part.starts_with("8.") || part.starts_with("5.7") || part.starts_with("9.") {
-                let cleaned = part.trim_end_matches(',');
-                return Some(format!("MySQL {}", cleaned));
+        }
+
+        // Older MySQL clients report their own version after `Ver` and the
+        // server version after `Distrib`; prefer the latter when present.
+        for marker in ["Distrib", "Ver"] {
+            if let Some(version) = parts
+                .windows(2)
+                .find(|pair| pair[0] == marker)
+                .map(|pair| pair[1])
+            {
+                let cleaned = version.trim_end_matches(',');
+                if cleaned.contains('.')
+                    && cleaned
+                        .chars()
+                        .next()
+                        .map(|character| character.is_ascii_digit())
+                        .unwrap_or(false)
+                {
+                    return Some(format!("MySQL {}", cleaned));
+                }
             }
         }
 

@@ -22,6 +22,20 @@ fn test_mysql_version_parsing() {
 }
 
 #[test]
+fn test_mysql_legacy_distrib_version_parsing() {
+    let raw = "mysql  Ver 14.14 Distrib 5.6.51, for Linux (x86_64) using EditLine wrapper";
+    let parsed = DatabaseDetector::parse_version(raw);
+    assert_eq!(parsed, Some("MySQL 5.6.51".to_string()));
+}
+
+#[test]
+fn test_mysql_legacy_server_version_parsing() {
+    let raw = "mysqld  Ver 5.5.62 for Linux on x86_64";
+    let parsed = DatabaseDetector::parse_version(raw);
+    assert_eq!(parsed, Some("MySQL 5.5.62".to_string()));
+}
+
+#[test]
 fn test_empty_version_parsing() {
     assert_eq!(DatabaseDetector::parse_version(""), None);
 }
